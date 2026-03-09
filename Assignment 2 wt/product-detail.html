@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - PC Parts Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .product-detail {
+            padding: 2rem 0;
+        }
+        
+        .back-btn {
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        .product-image-large {
+            width: 100%;
+            padding-top: 100%;
+            position: relative;
+            background: #f3f4f6;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .product-image-large img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .product-category-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        
+        .product-rating-large {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .stars-large {
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .star-large {
+            color: #fbbf24;
+            font-size: 1.25rem;
+        }
+        
+        .price-large {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .product-description-large {
+            font-size: 1.125rem;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #e5e7eb;
+        }
+        
+        .specs-section h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .spec-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .spec-value {
+            font-weight: 600;
+        }
+        
+        .quantity-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .quantity-label {
+            font-weight: 600;
+        }
+        
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+        }
+        
+        .quantity-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.125rem;
+        }
+        
+        .quantity-btn:hover {
+            background: #f3f4f6;
+        }
+        
+        .quantity-value {
+            padding: 0 1rem;
+            font-weight: 600;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-buttons .btn {
+            flex: 1;
+        }
+        
+        .info-box {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .info-item {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .info-icon {
+            color: #2563eb;
+        }
+        
+        .info-content h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .info-content p {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        @media (min-width: 1024px) {
+            .product-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <div class="header-left">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">PC</div>
+                    <span class="logo-text">PC Parts Shop</span>
+                </a>
+                <nav class="desktop-nav">
+                    <a href="products.html">All Products</a>
+                    <a href="products.html?category=gpu">Graphics Cards</a>
+                    <a href="products.html?category=cpu">Processors</a>
+                    <a href="products.html?category=motherboard">Motherboards</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="search" placeholder="Search products..." class="search-input">
+                </div>
+                <a href="cart.html" class="cart-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail -->
+    <div class="product-detail">
+        <div class="container">
+            <button class="btn btn-outline back-btn" onclick="history.back()">
+                ← Back
+            </button>
+
+            <div class="product-layout" id="productContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Us</h3>
+                    <p>Your trusted source for high-quality PC components and accessories.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="products.html?category=gpu">Graphics Cards</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Your email">
+                        <button class="btn btn-primary">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 PC Parts Shop. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="products-data.js"></script>
+    <script src="cart.js"></script>
+    <script src="script.js"></script>
+    <script>
+        let currentQuantity = 1;
+        let currentProduct = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const productId = getUrlParameter('id');
+            currentProduct = products.find(p => p.id === productId);
+            
+            if (currentProduct) {
+                displayProduct();
+            } else {
+                document.getElementById('productContent').innerHTML = `
+                    <div style="text-align: center; padding: 3rem;">
+                        <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Product Not Found</h2>
+                        <a href="products.html" class="btn btn-primary">Back to Products</a>
+                    </div>
+                `;
+            }
+        });
+
+        function displayProduct() {
+            const category = categories.find(c => c.id === currentProduct.category);
+            
+            const html = `
+                <div>
+                    <div class="product-image-large">
+                        <img src="${currentProduct.image}" alt="${currentProduct.name}">
+                    </div>
+                </div>
+                
+                <div class="product-details">
+                    <div>
+                        <span class="product-category-badge">${category.name}</span>
+                        <h1 class="product-title">${currentProduct.name}</h1>
+                        
+                        <div class="product-rating-large">
+                            <div class="stars-large">
+                                ${Array(5).fill(0).map((_, i) => 
+                                    `<span class="star-large">${i < Math.floor(currentProduct.rating) ? '★' : '☆'}</span>`
+                                ).join('')}
+                            </div>
+                            <span>${currentProduct.rating} (125 reviews)</span>
+                        </div>
+                        
+                        <div class="price-large">$${currentProduct.price.toFixed(2)}</div>
+                        <p class="product-description-large">${currentProduct.description}</p>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="specs-section">
+                        <h3>Specifications</h3>
+                        <div class="specs-grid">
+                            ${Object.entries(currentProduct.specs).map(([key, value]) => `
+                                <div class="spec-item">
+                                    <div class="spec-label">${key}</div>
+                                    <div class="spec-value">${value}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="quantity-section">
+                        <div class="quantity-controls">
+                            <span class="quantity-label">Quantity:</span>
+                            <div class="quantity-input">
+                                <button class="quantity-btn" onclick="changeQuantity(-1)" ${!currentProduct.inStock ? 'disabled' : ''}>-</button>
+                                <span class="quantity-value" id="quantityValue">1</span>
+                                <button class="quantity-btn" onclick="changeQuantity(1)" ${!currentProduct.inStock ? 'disabled' : ''}>+</button>
+                            </div>
+                            <span class="badge ${currentProduct.inStock ? 'badge-success' : 'badge-error'}">
+                                ${currentProduct.inStock ? 'In Stock' : 'Out of Stock'}
+                            </span>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-primary btn-lg" onclick="handleAddToCart()" ${!currentProduct.inStock ? 'disabled' : ''}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Add to Cart
+                            </button>
+                            <button class="btn btn-secondary btn-lg" onclick="handleBuyNow()" ${!currentProduct.inStock ? 'disabled' : ''}>
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-item">
+                            <svg class="info-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="3" width="15" height="13"></rect>
+                                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                            </svg>
+                            <div class="info-content">
+                                <h4>Free Shipping</h4>
+                                <p>On orders over $50</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <svg class="info-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                            <div class="info-content">
+                                <h4>Warranty Protection</h4>
+                                <p>Full manufacturer warranty included</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('productContent').innerHTML = html;
+        }
+
+        function changeQuantity(delta) {
+            currentQuantity = Math.max(1, currentQuantity + delta);
+            document.getElementById('quantityValue').textContent = currentQuantity;
+        }
+
+        function handleAddToCart() {
+            addToCart(currentProduct.id, currentQuantity);
+        }
+
+        function handleBuyNow() {
+            addToCart(currentProduct.id, currentQuantity);
+            window.location.href = 'checkout.html';
+        }
+    </script>
+</body>
+</html>
